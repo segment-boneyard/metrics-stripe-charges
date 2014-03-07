@@ -3,18 +3,18 @@ var Charges = require('stripe-charges');
 var Dates = require('date-math');
 
 /**
- * Expose `StripeCharges`.
+ * Expose `ChargesDashboard`.
  */
 
-module.exports = StripeCharges;
+module.exports = ChargesDashboard;
 
 /**
  * Return a Stripe dashboards data function.
  * @param {String} key
  * @param {Object} options
  */
-function StripeCharges (key, options) {
-  if (!(this instanceof StripeCharges)) return new StripeCharges(key, options);
+function ChargesDashboard (key, options) {
+  if (!(this instanceof ChargesDashboard)) return new ChargesDashboard(key, options);
   this.charges = Charges(key);
   this.options = options || {};
   var self = this;
@@ -30,7 +30,7 @@ function StripeCharges (key, options) {
  * @returns {Function}
  */
 
-StripeCharges.prototype.stripe = function (data, callback) {
+ChargesDashboard.prototype.stripe = function (data, callback) {
   var self = this;
   var results = data.stripe = (data.stripe || {});
   // select all the charges
@@ -52,7 +52,7 @@ StripeCharges.prototype.stripe = function (data, callback) {
  * @param {Object} results
  */
 
-StripeCharges.prototype.last2Days = function (charges, results) {
+ChargesDashboard.prototype.last2Days = function (charges, results) {
   var today = new Date();
 
   var todayCharges = this.paidCharges(charges, today, today);
@@ -77,7 +77,7 @@ StripeCharges.prototype.last2Days = function (charges, results) {
  * @param {Object} results
  */
 
-StripeCharges.prototype.daily = function (charges, results) {
+ChargesDashboard.prototype.daily = function (charges, results) {
   var today = new Date();
 
   var numbers = [];
@@ -101,7 +101,7 @@ StripeCharges.prototype.daily = function (charges, results) {
  * @param {Object} results
  */
 
-StripeCharges.prototype.weekly = function (charges, results) {
+ChargesDashboard.prototype.weekly = function (charges, results) {
   var yesterday = Dates.day.shift(new Date(), -1);
 
   var oneWeekAgo = Dates.day.shift(yesterday, -7);
@@ -122,7 +122,7 @@ StripeCharges.prototype.weekly = function (charges, results) {
  * @param {Object} results
  */
 
-StripeCharges.prototype.monthly = function (charges, results) {
+ChargesDashboard.prototype.monthly = function (charges, results) {
   var yesterday = Dates.day.shift(new Date(), -1);
 
   var oneMonthAgo = Dates.month.shift(yesterday, -1);
@@ -143,7 +143,7 @@ StripeCharges.prototype.monthly = function (charges, results) {
  * @param {Object} results
  */
 
-StripeCharges.prototype.total = function (charges, results) {
+ChargesDashboard.prototype.total = function (charges, results) {
   charges = this.paidCharges(charges);
   results['charges'] = charges.count();
   results['total charged'] = charges.total();
@@ -158,7 +158,7 @@ StripeCharges.prototype.total = function (charges, results) {
  * @return {Charges}
  */
 
-StripeCharges.prototype.paidCharges = function (charges, start, end) {
+ChargesDashboard.prototype.paidCharges = function (charges, start, end) {
   if (this.options.filter) charges = charges.filter(this.options.filter);
   if (start && end) charges = charges.created(floor(start), ceil(end));
   charges = charges.paid(true).refunded(false);

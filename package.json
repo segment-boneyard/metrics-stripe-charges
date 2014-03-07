@@ -1,6 +1,6 @@
 {
   "name": "dashboards-stripe-charges",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "lib": "./lib",
   "repository": "git://github.com/segmentio/dashboards-stripe-charges.git",
   "description": "Stripe charges plugin for segmentio/dashboards",
@@ -17,6 +17,6 @@
     "range": "~0.0.2",
     "date-math": "~0.0.1",
     "timeago": "~0.1.0",
-    "stripe-charges": "~0.0.1"
+    "stripe-charges": "~0.0.3"
   }
 }
