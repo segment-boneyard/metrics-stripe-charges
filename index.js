@@ -102,10 +102,10 @@ ChargesDashboard.prototype.daily = function (charges, results) {
  */
 
 ChargesDashboard.prototype.weekly = function (charges, results) {
-  var yesterday = Dates.day.shift(new Date(), -1);
+  var now = new Date();
 
-  var oneWeekAgo = Dates.day.shift(yesterday, -7);
-  var oneWeekAgoCharges =  this.paidCharges(charges, oneWeekAgo, yesterday);
+  var oneWeekAgo = Dates.day.shift(now, -7);
+  var oneWeekAgoCharges =  this.paidCharges(charges, oneWeekAgo, now);
   results['charges 0-1 weeks ago'] = oneWeekAgoCharges.count();
   results['total charged 0-1 weeks ago'] = oneWeekAgoCharges.total();
 
@@ -123,10 +123,10 @@ ChargesDashboard.prototype.weekly = function (charges, results) {
  */
 
 ChargesDashboard.prototype.monthly = function (charges, results) {
-  var yesterday = Dates.day.shift(new Date(), -1);
+  var now = new Date();
 
-  var oneMonthAgo = Dates.month.shift(yesterday, -1);
-  var oneMonthAgoCharges =  this.paidCharges(charges, oneMonthAgo, yesterday);
+  var oneMonthAgo = Dates.month.shift(now, -1);
+  var oneMonthAgoCharges =  this.paidCharges(charges, oneMonthAgo, now);
   results['charges 0-1 months ago'] = oneMonthAgoCharges.count();
   results['total charged 0-1 months ago'] = oneMonthAgoCharges.total();
 
