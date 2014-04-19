@@ -1,7 +1,6 @@
-
 # dashboards-stripe-charges
 
-A [Stripe](https://stripe.com) [charges](https://github.com/stripe-charges) plugin for [segmentio/dashboards](https://github.com/segmentio/dashboards).
+A [Stripe](https://stripe.com) [charges](https://github.com/segmentio/stripe-charges) plugin for [segmentio/dashboards](https://github.com/segmentio/dashboards).
 
 Use this plugin to visualize Stripe charges over time.
 
