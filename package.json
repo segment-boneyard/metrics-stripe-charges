@@ -1,0 +1,18 @@
+{
+  "name": "metrics-stripe-charges",
+  "version": "0.0.1",
+  "repository": "git://github.com/segmentio/metrics-stripe-charges.git",
+  "description": "Stripe charges plugin for segmentio/metrics",
+  "keywords": [
+    "metrics",
+    "stripe",
+    "charges",
+    "API"
+  ],
+  "dependencies": {
+    "date-math": "0.0.1",
+    "debug": "^0.8.1",
+    "ms": "^0.6.2",
+    "stripe-charges": "0.0.3"
+  }
+}
