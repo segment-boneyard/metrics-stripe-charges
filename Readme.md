@@ -23,8 +23,7 @@ var geckoboard = require('geckoboard')('api-key');
 new Metrics()
   .every('10m', charges('stripe-key'))
   .use(function (metrics) {
-    metrics.on(`stripe charged today`, function (val) {
-      geckboard('54560-2d74a7d6-4227-44c6-9152-5534b7480eac').number(val);
+    metrics.on('stripe charged today', geckoboard('widget-id').number);
     });
   });
 ```
