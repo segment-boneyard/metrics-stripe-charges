@@ -1,6 +1,6 @@
 {
   "name": "metrics-stripe-charges",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": "git://github.com/segmentio/metrics-stripe-charges.git",
   "description": "Stripe charges plugin for segmentio/metrics",
   "keywords": [
