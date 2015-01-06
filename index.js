@@ -44,8 +44,8 @@ function charges (key, options) {
       for (var i = 1; i <= 52; i += 1)
         set(metrics, charges, start, Dates.week.shift(today, -i));
 
-      // last 19 years
-      for (var i = 1; i <= 10; i <= 1)
+      // last 10 years
+      for (var i = 1; i <= 10; i += 1)
         set(metrics, charges, start, Dates.year.shift(today, -i));      
     });
   };
