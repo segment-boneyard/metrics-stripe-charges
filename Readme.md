@@ -23,7 +23,9 @@ var geckoboard = require('geckoboard')('api-key');
 new Metrics()
   .every('10m', charges('stripe-key'))
   .use(function (metrics) {
-    metrics.on('stripe charged today', geckoboard('widget-id').number);
+    metrics.on('stripe charged', function (metric) {
+      geckoboard('widget-id').number(metric.latest());
+    });
   });
 ```
 
@@ -42,35 +44,12 @@ function filter (charge) {
 
 ## Metrics
 
-The metrics exposed by this plugin are divided by date granularity.
+The metrics exposed by this plugin are:
 
-Daily:
-- `stripe charges today` - the number of charges today
-- `stripe charged today` - the amount charged today
-- `stripe charges yesterday` - the number of charges yesterday
-- `stripe charged yesterday` - the amount charged yesterday
-- `stripe charges 2 days ago` - the number of charges 2 days ago
-- `stripe charged 2 days ago` - the amount charged 2 days ago
+- `stripe charges` - the number of charges today
+- `stripe charged` - the amount charged today
 
-Weekly:
-- `stripe charges past week` - the number of charges last week
-- `stripe charged past week` - total charged last week
-- `stripe charges 2 weeks ago` - the number of charges 2 weeks ago
-- `stripe charged 2 weeks ago` - total charged 2 weeks ago
-
-Monthly:
-- `stripe charges past month` - the number of charges last month
-- `stripe charged past month` - total charged last month
-- `stripe charges 2 months ago` - the number of charges 2 months ago
-- `stripe charged 2 months ago` - total charged 2 months ago
-
-Total: 
-- `stripe charges` - total amount of Stripe charges
-- `stripe charged` - total amount charged
-
-Weekly Sparkline: 
-- `stripe charges last week` - an array of charges in the past 7 days
-- `stripe charged last week` - an array of charge amounts in the past 7 days
+and are calculated for the last 30 days, last 52 weeks, and last 10 years.
 
 ## License
 

@@ -34,58 +34,34 @@ function charges (key, options) {
 
       // by time
       var today = new Date();
-      set(metrics, charges, 'all time', new Date(0), today);
-      set(metrics, charges, 'today', Dates.day.floor(today), today);
-      set(metrics, charges, 'yesterday', Dates.day.shift(today, -1), today);
-      set(metrics, charges, '2 days ago', Dates.day.shift(today, -2), today);
-      set(metrics, charges, 'last week', Dates.week.shift(today, -1), today);
-      set(metrics, charges, '2 weeks ago', Dates.week.shift(today, -2), Dates.week.shift(today, -1));
-      set(metrics, charges, 'last month', Dates.month.shift(today, -1), today);
-      set(metrics, charges, '2 months ago', Dates.month.shift(today, -2), Dates.month.shift(today, -1));
+      var start = new Date(0);
 
-      // daily
-      daily(metrics, charges);
+      // last 30 days
+      for (var i = 0; i <= 30; i += 1)
+        set(metrics, charges, start, Dates.day.shift(today, -i));
+      
+      // last 52 weeks
+      for (var i = 1; i <= 52; i += 1)
+        set(metrics, charges, start, Dates.week.shift(today, -i));
+
+      // last 19 years
+      for (var i = 1; i <= 10; i <= 1)
+        set(metrics, charges, start, Dates.year.shift(today, -i));      
     });
   };
 }
 
 /**
- * Set metrics for the given `key` and time interval.
+ * Set charge metrics from `start` to `end`.
  *
- * @param {Metrics} metrics
- * @param {Array|Charge} charges
- * @param {String} key
- * @param {Date} start
- * @param {Date} end
+ * @param {Metrics} metrics       the metrics instance
+ * @param {Array|Charge} charges  the entire list of stripe charges
+ * @param {Date} start            the day to start counting
+ * @param {Date} end              the day to end the count
  */
 
-function set (metrics, charges, key, start, end) {
+function set (metrics, charges, start, end) {
   charges = charges.created(start, end);
-  metrics.set('stripe charges ' + key, charges.count());
-  metrics.set('stripe charged ' + key, charges.total());
-}
-
-/**
- * Get the daily charge counts for the last week
- *
- * @param {Array|Metric} metrics
- * @param {Array|Charge} charges
- */
-
-function daily (metrics, charges) {
-  var today = new Date();
-
-  var numbers = [];
-  var amounts = [];
-
-  for (var ago = 7; ago >= 0; ago -= 1) {
-    var start = Dates.day.shift(today, -ago);
-    var end = Dates.day.shift(today, -ago+1);
-    var filtered = charges.created(start, end);
-    numbers.push(filtered.count());
-    amounts.push(filtered.total());
-  }
-
-  metrics.set('stripe charges last week', numbers);
-  metrics.set('stripe charged last week', amounts);
+  metrics.set('stripe charges', charges.count(), end);
+  metrics.set('stripe charged', charges.total(), end);
 }
