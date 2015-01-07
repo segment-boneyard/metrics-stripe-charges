@@ -46,8 +46,8 @@ function filter (charge) {
 
 The metrics exposed by this plugin are:
 
-- `stripe charges` - the number of charges today
-- `stripe charged` - the amount charged today
+- `stripe charges` - the number of charges
+- `stripe charged` - the dollar amount charged
 
 and are calculated for the last 30 days, last 52 weeks, and last 10 years.
 
