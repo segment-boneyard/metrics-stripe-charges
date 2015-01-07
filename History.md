@@ -1,4 +1,8 @@
 
+1.0.1 - January 7, 2015
+-------------------------
+- republish
+
 1.0.0 - January 6, 2015
 -------------------------
 - removing time from metric keys
